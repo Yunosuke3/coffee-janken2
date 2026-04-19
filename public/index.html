@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="theme-color" content="#009BDC" />
+<title>じゃんけん 3D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<canvas id="scene"></canvas>
+<div class="sky-gradient"></div>
+
+<!-- ===== Home Screen ===== -->
+<div id="home-screen" class="overlay">
+  <div class="home-card">
+    <div class="badge-bar">
+      <span class="badge badge-green"></span>
+      <span class="badge badge-blue"></span>
+    </div>
+    <h1 class="home-title">じゃんけん</h1>
+    <p class="home-sub">“勝者”はただ一人！そいつだけが味わうことを許される至高の報酬を求め戦えッ！！</p>
+
+    <div class="field">
+      <label>お名前</label>
+      <input id="name-input" type="text" maxlength="20" placeholder="例: ゆうのすけ" />
+    </div>
+
+    <div class="field">
+      <label>キャラクターをえらぶ</label>
+      <div class="character-grid">
+        <button type="button" class="character-card selected" data-character="bear">
+          <div class="character-illustration">
+            <svg viewBox="0 0 80 80" aria-hidden="true">
+              <ellipse cx="40" cy="62" rx="22" ry="14" fill="#C19A6B"/>
+              <circle cx="24" cy="22" r="8" fill="#A98458"/>
+              <circle cx="56" cy="22" r="8" fill="#A98458"/>
+              <circle cx="24" cy="22" r="4" fill="#7B5A3A"/>
+              <circle cx="56" cy="22" r="4" fill="#7B5A3A"/>
+              <circle cx="40" cy="38" r="22" fill="#D4B085"/>
+              <ellipse cx="40" cy="46" rx="10" ry="8" fill="#F0D5A8"/>
+              <ellipse cx="40" cy="42" rx="2.5" ry="1.8" fill="#2A2A2A"/>
+              <circle cx="32" cy="35" r="2" fill="#2A2A2A"/>
+              <circle cx="48" cy="35" r="2" fill="#2A2A2A"/>
+              <ellipse cx="28" cy="44" rx="3" ry="1.5" fill="#FFB3B3" opacity="0.8"/>
+              <ellipse cx="52" cy="44" rx="3" ry="1.5" fill="#FFB3B3" opacity="0.8"/>
+            </svg>
+          </div>
+          <div class="character-name">もぐ</div>
+          <div class="character-tag">🐻 子供の頃、たったの銀貨5枚で実の父親に売られた </div>
+        </button>
+
+        <button type="button" class="character-card" data-character="rabbit">
+          <div class="character-illustration">
+            <svg viewBox="0 0 80 80" aria-hidden="true">
+              <ellipse cx="40" cy="62" rx="22" ry="14" fill="#FFF4E0"/>
+              <ellipse cx="29" cy="14" rx="5" ry="14" fill="#FFF4E0"/>
+              <ellipse cx="51" cy="14" rx="5" ry="14" fill="#FFF4E0"/>
+              <ellipse cx="29" cy="15" rx="2.5" ry="9" fill="#FFD0D8"/>
+              <ellipse cx="51" cy="15" rx="2.5" ry="9" fill="#FFD0D8"/>
+              <circle cx="40" cy="40" r="20" fill="#FFFBEF"/>
+              <circle cx="32" cy="37" r="2" fill="#2A2A2A"/>
+              <circle cx="48" cy="37" r="2" fill="#2A2A2A"/>
+              <ellipse cx="40" cy="44" rx="2.5" ry="2" fill="#FF9BB3"/>
+              <path d="M36 48 Q40 51 44 48" stroke="#7A7A88" stroke-width="1" fill="none" stroke-linecap="round"/>
+              <ellipse cx="27" cy="46" rx="3" ry="1.5" fill="#FFB3B3" opacity="0.8"/>
+              <ellipse cx="53" cy="46" rx="3" ry="1.5" fill="#FFB3B3" opacity="0.8"/>
+            </svg>
+          </div>
+          <div class="character-name">ぴょん</div>
+          <div class="character-tag">🐰 親父は猿の頭蓋骨で酒を飲む</div>
+        </button>
+
+        <button type="button" class="character-card" data-character="cat">
+          <div class="character-illustration">
+            <svg viewBox="0 0 80 80" aria-hidden="true">
+              <ellipse cx="40" cy="62" rx="22" ry="14" fill="#B8B8C4"/>
+              <path d="M62 58 Q74 54 70 38" stroke="#B8B8C4" stroke-width="6" fill="none" stroke-linecap="round"/>
+              <path d="M20 28 L24 8 L34 22 Z" fill="#B8B8C4"/>
+              <path d="M60 28 L56 8 L46 22 Z" fill="#B8B8C4"/>
+              <path d="M22 24 L25 14 L31 22 Z" fill="#FFD0D8"/>
+              <path d="M58 24 L55 14 L49 22 Z" fill="#FFD0D8"/>
+              <circle cx="40" cy="40" r="20" fill="#CDCDD6"/>
+              <circle cx="32" cy="38" r="2" fill="#2A2A2A"/>
+              <circle cx="48" cy="38" r="2" fill="#2A2A2A"/>
+              <path d="M40 44 L38 46 L42 46 Z" fill="#FF9BB3"/>
+              <path d="M36 48 Q40 51 44 48" stroke="#6A6A78" stroke-width="1" fill="none" stroke-linecap="round"/>
+              <line x1="28" y1="45" x2="18" y2="43" stroke="#7A7A88" stroke-width="0.8"/>
+              <line x1="28" y1="47" x2="18" y2="48" stroke="#7A7A88" stroke-width="0.8"/>
+              <line x1="52" y1="45" x2="62" y2="43" stroke="#7A7A88" stroke-width="0.8"/>
+              <line x1="52" y1="47" x2="62" y2="48" stroke="#7A7A88" stroke-width="0.8"/>
+            </svg>
+          </div>
+          <div class="character-name">みぃ</div>
+          <div class="character-tag">🐱 トラの乳を飲んで育った </div>
+        </button>
+      </div>
+    </div>
+
+    <button id="btn-create" class="btn btn-primary">あたらしい部屋を作る</button>
+
+    <div class="divider"><span>または</span></div>
+
+    <div class="field">
+      <label>参加コード（4桁）</label>
+      <input id="code-input" type="text" class="code-input" maxlength="4" placeholder="ABCD" />
+    </div>
+    <button id="btn-join" class="btn btn-secondary">部屋に参加する</button>
+  </div>
+  <div class="home-footer">☕</div>
+</div>
+
+<!-- ===== Game HUD ===== -->
+<div id="hud" class="hidden">
+
+  <div class="top-bar">
+    <div class="room-pill">
+      <span class="room-pill-label">参加コード</span>
+      <strong id="room-code">----</strong>
+      <button id="btn-copy" class="pill-btn">共有</button>
+    </div>
+    <div id="round-pill" class="round-pill hidden"></div>
+  </div>
+
+  <div id="status-pill" class="status-pill"></div>
+
+  <div id="result-banner" class="result-banner hidden"></div>
+
+  <div id="choice-panel" class="bottom-panel hidden">
+    <button class="choice-btn" data-choice="rock">
+      <span class="choice-emoji">✊</span>
+      <span class="choice-label">グー</span>
+    </button>
+    <button class="choice-btn" data-choice="scissors">
+      <span class="choice-emoji">✌️</span>
+      <span class="choice-label">チョキ</span>
+    </button>
+    <button class="choice-btn" data-choice="paper">
+      <span class="choice-emoji">✋</span>
+      <span class="choice-label">パー</span>
+    </button>
+  </div>
+
+  <div id="host-panel" class="bottom-panel-center hidden">
+    <button id="btn-start" class="btn btn-primary btn-large">ゲームスタート</button>
+    <p class="hint">2人以上集まってから押してください</p>
+  </div>
+
+  <div id="finale-panel" class="finale-overlay hidden">
+    <div class="finale-card">
+      <div class="finale-emoji">☕</div>
+      <p class="finale-label">今日の勝者</p>
+      <div id="loser-name" class="finale-name"></div>
+      <p class="finale-sub">大天使エノモーンからの祝福を！！</p>
+      <div class="finale-buttons">
+        <button id="btn-restart" class="btn btn-primary">もう一度</button>
+        <button id="btn-leave" class="btn btn-secondary">ホームに戻る</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+  }
+}
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script type="module" src="game.js"></script>
+
+</body>
+</html>
